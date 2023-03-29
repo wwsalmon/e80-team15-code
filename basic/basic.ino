@@ -1,5 +1,6 @@
 void setup() {
   // put your setup code here, to run once:
+  pinMode(A3, OUTPUT);
   Serial.begin(9600);
 }
 
@@ -13,10 +14,11 @@ void loop() {
   float a2voltage = a2analog / analogToVoltageDenom;
   Serial.println("A1 voltage: " + String(a1voltage));
   Serial.println("A2 voltage: " + String(a2voltage));
-  if (a2voltage < 2.65) {
-    analogWrite(A3, 255);
-  } else {
-    analogWrite(A3, 0);
-  }
+  // if (a2voltage < 2.65) {
+  //   analogWrite(3, 255);
+  // } else {
+  //   analogWrite(3, 0);
+  // }
+  analogWrite(A3, 256);
   delay(250);
 }
