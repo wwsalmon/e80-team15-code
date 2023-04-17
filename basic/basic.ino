@@ -1,5 +1,8 @@
 #include <SPI.h>
 #include <SD.h>
+#include "MotorDriver.h"
+
+MotorDriver motor_driver;
 
 const int chipSelect = 10;
 
@@ -41,10 +44,17 @@ void loop() {
   Serial.println();
   Serial.println();
   Serial.println(millis());
-  Serial.println("Temperature: " + String(temperatureVoltage));
-  Serial.println("Pressure: " + String(pressureVoltage));
-  Serial.println("Salinity max: " + String(salinityMaxVoltage));
-  Serial.println("Salinity min: " + String(salinityMinVoltage));
+  Serial.print("Temperature:");
+  Serial.print(temperatureVoltage, 6);
+  Serial.print(",");
+  Serial.println("Pressure:");
+  Serial.print(pressureVoltage, 6);
+  Serial.print(",");
+  Serial.println("Salinity max:");
+  Serial.print(salinityMaxVoltage, 6);
+  Serial.print(",");
+  Serial.println("Salinity min:");
+  Serial.print(salinityMinVoltage, 6);
   if (pressureVoltage < 2.1) { // CHANGE THIS DEPENDING ON DEPTH CALIBRATION
     digitalWrite(24, HIGH);
     digitalWrite(25, LOW);
@@ -70,5 +80,6 @@ void loop() {
   } else {
     Serial.println("Failed to open file");
   }
+  motor_driver.drive(0,0,-30);
   delay(250);
 }
